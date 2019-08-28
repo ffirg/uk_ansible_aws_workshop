@@ -60,17 +60,16 @@ Run the playbook - exit back into the command line of the control host and execu
 
 >Use the write/quit method in vim to save your playbook, i.e. Esc :wq!
 
-
+*NOTE* the use of -i to specify the path to our inventory. This is useful if you have multiple inventories. Our .ansible.cfg already states where our inventory is so we don't need to use it
+beyond this example.
 ```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+[student1@ansible networking-workshop]$ ansible-playbook -i ~/networking-workshop/lab_inventory/hosts gather_ios_data.yml
 
 ```
 
 The output should look as follows.
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
-
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
 
 TASK [GATHER ROUTER FACTS] ******************************************************************************
@@ -91,7 +90,7 @@ The play ran successfully and executed against the 4 routers. But where is the o
 
 
 ```
-student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v
+student1@ansible networking-workshop]$ ansible-playbook gather_ios_data.yml  -v
 Using /home/student1/.ansible.cfg as config file
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
@@ -116,11 +115,11 @@ Ansible allows you to limit the playbook execution to a subset of the devices de
 
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+[student1@ansible networking-workshop]$ ansible-playbook gather_ios_data.yml  -v --limit rtr1
 ```
 
 ```
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml  -v --limit rtr1
+[student1@ansible networking-workshop]$ ansible-playbook gather_ios_data.yml  -v --limit rtr1
 
 ```
 
@@ -161,7 +160,7 @@ Now re-run the playbook but this time do not use the `verbose` flag and run it a
 
 ```
 
-[student1@ansible networking-workshop]$ ansible-playbook -i lab_inventory/hosts gather_ios_data.yml
+[student1@ansible networking-workshop]$ ansible-playbook gather_ios_data.yml
 
 PLAY [GATHER INFORMATION FROM ROUTERS] ******************************************************************
 
@@ -220,6 +219,11 @@ The contents of the playbook should be as follows. Note the use of "when" which 
       debug:
         msg: "The serial number is: {{ ansible_net_serialnum }}" 
 {%endraw%}
+```
+Now run the playbook.
+
+```
+[student1@ansible networking-workshop]$ ansible-playbook gather_router_data.yml
 ```
 
 Using less than 20 lines of "code" you have just automated version and serial number collection. Imagine if you were running this against your production network! You have actionable data in hand that does not go out of date.
