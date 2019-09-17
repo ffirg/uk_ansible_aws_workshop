@@ -131,8 +131,8 @@ Now we'll modify the playbook and add 2 tasks that display the routers' OS versi
 
 Your playbook should look like this:
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco
@@ -150,8 +150,8 @@ Your playbook should look like this:
     - name: DISPLAY SERIAL NUMBER
       debug:
         msg: "The serial number is: {{ ansible_net_serialnum }}"      
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 
 
 #### Step 8
@@ -194,8 +194,8 @@ Now let's gather facts from our Arista routers as well. Let's create a new playb
 
 The contents of the playbook should be as follows. Note the use of "when" which makes the task conditional. We will only run the ios_facts task against routers which have a variable of ansible_network_os = ios. The ansible_network_os variable is already set for us in our inventory.
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: cisco,arista
@@ -218,8 +218,8 @@ The contents of the playbook should be as follows. Note the use of "when" which 
     - name: DISPLAY SERIAL NUMBER
       debug:
         msg: "The serial number is: {{ ansible_net_serialnum }}" 
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 Now run the playbook.
 
 ```
