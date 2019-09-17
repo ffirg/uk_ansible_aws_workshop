@@ -97,8 +97,8 @@ In **Step 2** you captured the output of the task into a variable called `config
 
 
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -115,8 +115,8 @@ In **Step 2** you captured the output of the task into a variable called `config
       copy:
         src: "{{config_output.backup_path}}"
         dest: "./backup/{{inventory_hostname}}.config"
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 
 
 #### Step 6
@@ -190,8 +190,8 @@ These lines have to be "cleaned up" to have a restorable configuration.
 Write a new task using Ansible's `lineinfile` module to remove the first line.
 
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -214,8 +214,8 @@ Write a new task using Ansible's `lineinfile` module to remove the first line.
         path: "./backup/{{inventory_hostname}}.config"
         line: "Building configuration..."
         state: absent
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 
 
 > Note: The module parameter **line** is matching an exact line in the configuration file "Building configuration..."
@@ -226,8 +226,8 @@ Write a new task using Ansible's `lineinfile` module to remove the first line.
 Before we run the playbook, we need to add one more task to remove the second line "Current configuration ...etc". Since this line has a variable entity (the number of bytes), we cannot use the `line` parameter of the `lineinfile` module. Instead, we'll use the `regexp` parameter to match on regular expressions and remove the line in the file:
 
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: cisco
@@ -256,8 +256,8 @@ Before we run the playbook, we need to add one more task to remove the second li
         path: "./backup/{{inventory_hostname}}.config"
         regexp: 'Current configuration.*'
         state: absent
-{%endraw%}                          
 ```
+<!-- {% endraw %} -->
 
 
 #### Step 10

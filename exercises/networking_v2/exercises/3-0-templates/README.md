@@ -55,8 +55,8 @@ Add a task that collects the facts using the `ios_facts` module. Recollect that 
 Rather than using debug or verbose mode to display the output on the screen, go ahead and add a new task using the template module as follows:
 
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
@@ -77,8 +77,8 @@ Rather than using debug or verbose mode to display the output on the screen, go 
       template:
         src: os_report.j2
         dest: reports/{{ inventory_hostname }}.md
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 
 
 
@@ -93,7 +93,7 @@ The next step is to create a Jinja2 template. Ansible will look for the template
 Using `vi`, `nano` or another text editor, go ahead and create the file called `os_report.j2` under the `templates` directory. Add the following into the template file:
 
 
-{%raw%}
+<!-- {% raw %} -->
 ``` python
 
 
@@ -104,7 +104,7 @@ Using `vi`, `nano` or another text editor, go ahead and create the file called `
 
 
 ```
-{%endraw%}  
+<!-- {% endraw %} -->
 This file simply contains some of the variables we have been using in our playbooks until now.
 
 > Note: Python inbuilt methods for datatypes are available natively in Jinja2 making it very easy to manipulate the formatting etc.
@@ -182,8 +182,8 @@ While it is nice to have the data, it would be even better to consolidate all th
 
 
 
+<!-- {% raw %} -->
 ``` yaml
-{%raw%}
 ---
 - name: GENERATE OS REPORT FROM ROUTERS
   hosts: cisco
@@ -211,8 +211,8 @@ While it is nice to have the data, it would be even better to consolidate all th
         dest: network_os_report.md
       delegate_to: localhost
       run_once: yes
-{%endraw%}
 ```
+<!-- {% endraw %} -->
 
 
 Here we are using the `assemble` module. The `src` parameter specifies the directory that contain file fragments that need to be consolidated and the `dest` parameter provides the file to render the fragments into.
