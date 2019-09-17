@@ -59,7 +59,7 @@ Download the user.json file that will generate our survey in Tower. Make sure it
 
 ```
 [student1@ansible ~]$ cd ~/networking-workshop/
-[student1@ansible ~]$ curl -O https://pharriso.github.io/linklight/exercises/networking_v2/exercises/4-3-tower-user-template/user.json
+[student1@ansible ~]$ curl -O https://pharriso.github.io/uk_ansible_workshop/exercises/networking_v2/exercises/4-3-tower-user-template/user.json
 ```
 
 ## Step 3:
