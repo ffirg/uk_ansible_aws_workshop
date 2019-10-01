@@ -112,7 +112,7 @@ Let the job run to completion.  Let the instructor know if anything fails.
 Login to one of the routers and see the banner setup
 
 ```
-$ ssh rtr4
+$ ssh rtr1
 rtr4#exit
 ```
 
