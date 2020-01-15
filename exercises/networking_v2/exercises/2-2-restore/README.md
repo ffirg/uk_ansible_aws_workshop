@@ -51,15 +51,8 @@ end
 
 rtr1#
 ```
+
 #### Step 2
-
-We are going to use the net_put Ansible module to copy the config backup to the routers. This requires the scp python module. We need to install that first:
-
-```
-sudo pip install scp
-```
-
-#### Step 3
 
 Step 1 simulates our "Out of process/band" changes on the network. This change needs to be reverted. So let's write a new playbook to apply the backup we collected from our previous lab to achieve this.
 
@@ -75,7 +68,7 @@ Create a file called `restore_config.yml` using your favorite text editor and ad
 ```
 
 
-#### Step 4
+#### Step 3
 
 Write the task to copy over the previously backed up configuration file to the routers.
 
@@ -89,11 +82,7 @@ Write the task to copy over the previously backed up configuration file to the r
 
   tasks:
     - name: COPY RUNNING CONFIG TO ROUTER
-      net_put: 
-        src: ./backup/{{inventory_hostname}}.config
-        dest: flash:/{{inventory_hostname}}.config
-      vars:
-        ansible_command_timeout: 120
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
 
 ```
 <!-- {% endraw %} -->
@@ -190,11 +179,7 @@ Now that the known good configuration is on the destination devices, add a new t
 
   tasks:
     - name: COPY RUNNING CONFIG TO ROUTER
-      net_put: 
-        src: ./backup/{{inventory_hostname}}.config
-        dest: flash:/{{inventory_hostname}}.config
-      vars:
-        ansible_command_timeout: 120
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
 
     - name: CONFIG REPLACE
       ios_command:
